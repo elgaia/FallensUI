@@ -4738,6 +4738,12 @@ function NeverLose:CreateWindow(Config)
                 local TabIcon = Instance.new("TextLabel")
                 local TabContentLabel = Instance.new("TextLabel")
 
+                -- Vertical accent bar on the LEFT edge of the tab.
+                -- Visible (transparent = 0) when the tab is active, hidden when inactive.
+                -- Matches the bright blue/purple indicator shown in the reference image.
+                local TabAccent = Instance.new("Frame")
+                local TabAccentCorner = Instance.new("UICorner")
+
                 Tab.Idx = TabButton;
 
                 TabButton.Name = NeverLose.RandomString();
@@ -4751,6 +4757,20 @@ function NeverLose:CreateWindow(Config)
 
                 UICorner.CornerRadius = UDim.new(0, 6)
                 UICorner.Parent = TabButton
+
+                TabAccent.Name = NeverLose.RandomString();
+                TabAccent.Parent = TabButton
+                TabAccent.AnchorPoint = Vector2.new(0, 0.5)
+                TabAccent.BackgroundColor3 = NeverLose.AccentColor
+                TabAccent.BackgroundTransparency = 1.000
+                TabAccent.BorderColor3 = Color3.fromRGB(0, 0, 0)
+                TabAccent.BorderSizePixel = 0
+                TabAccent.Position = UDim2.new(0, 4, 0.5, 0)
+                TabAccent.Size = UDim2.new(0, 3, 0, 18)
+                TabAccent.ZIndex = 10
+
+                TabAccentCorner.CornerRadius = UDim.new(1, 0)
+                TabAccentCorner.Parent = TabAccent
 
                 TabIcon.Name = NeverLose.RandomString();
                 TabIcon.Parent = TabButton
@@ -4876,6 +4896,10 @@ function NeverLose:CreateWindow(Config)
                                         BackgroundTransparency = 0.500
                                 })
 
+                                NeverLose.PlayAnimate(TabAccent , SlowyTween , {
+                                        BackgroundTransparency = 0
+                                })
+
                                 NeverLose.PlayAnimate(TabIcon , SlowyTween , {
                                         TextTransparency = 0,
                                         TextColor3 = NeverLose.AccentColor
@@ -4886,6 +4910,10 @@ function NeverLose:CreateWindow(Config)
                                 })
                         else
                                 NeverLose.PlayAnimate(TabButton , SlowyTween , {
+                                        BackgroundTransparency = 1
+                                })
+
+                                NeverLose.PlayAnimate(TabAccent , SlowyTween , {
                                         BackgroundTransparency = 1
                                 })
 
@@ -4954,6 +4982,10 @@ function NeverLose:CreateWindow(Config)
                                 Tab.SetValue(false);
 
                                 NeverLose.PlayAnimate(TabButton , SlowyTween , {
+                                        BackgroundTransparency = 1
+                                })
+
+                                NeverLose.PlayAnimate(TabAccent , SlowyTween , {
                                         BackgroundTransparency = 1
                                 })
 
